@@ -1,11 +1,11 @@
 var Minio = require('minio')
 
 var minioClient = new Minio.Client({
-    endPoint: '202.140.139.66',
+    endPoint: 'Your-Endpoint',
     port: 9000,
     useSSL: false,
-    accessKey: 'minioadmin',
-    secretKey: 'minioadmin'
+    accessKey: 'ACCESS-KEY',
+    secretKey: 'SECRET-KEY'
 });
 
 const addBucket = async(bucketName) => {

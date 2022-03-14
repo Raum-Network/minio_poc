@@ -1,0 +1,19 @@
+{
+  "name": "minio_poc",
+  "version": "1.0.0",
+  "description": "This is a POC repository for minio API and dashboard Intergration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raum-Network/minio_poc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raum-Network/minio_poc/issues"
+  },
+  "homepage": "https://github.com/Raum-Network/minio_poc#readme"
+}

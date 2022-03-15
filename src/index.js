@@ -1,6 +1,19 @@
 var Minio = require('minio');
 
 
+exports.initialiseMinio = async(endpoint, port, useSSL, accessKey, secretKey) => {
+    var minioClient = new Minio.Client({
+        endPoint: endpoint,
+        port: port,
+        useSSL: useSSL,
+        accessKey: accessKey,
+        secretKey: secretKey
+    });
+
+    return minioClient;   
+}
+
+
 exports.addBucket = async(minioClient, bucketName) => {
     minioClient.makeBucket(bucketName, function(err) {
         if (err) {

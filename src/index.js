@@ -1,59 +1,63 @@
-var Minio = require('minio')
+var Minio = require('minio');
 
-var minioClient = new Minio.Client({
-    endPoint: 'Your-Endpoint',
-    port: 9000,
-    useSSL: false,
-    accessKey: 'ACCESS-KEY',
-    secretKey: 'SECRET-KEY'
-});
 
-const addBucket = async(bucketName) => {
-
+exports.addBucket = async(minioClient, bucketName) => {
     minioClient.makeBucket(bucketName, function(err) {
         if (err) {
             return err.toString();
         } else {
-            return "Bucket Created Success";
+            return "Bucket created success";
         }
     });
-
 }
 
 
-const test = async() => {
-    var message = await addBucket("mybucket1");
-    console.log(message);
+exports.deleteBucket = async(minioClient, bucketName) => {
+    minioClient.removeBucket(bucketName, function(err) {
+        if (err) {
+            return err.toString();
+        } else {
+            return "Bucket removed successfully";
+        }
+    });
 }
 
-test();
+
+exports.deleteBucketObject = async(minioClient, bucketName, bucketObject) => {
+    minioClient.removeObject(bucketName, bucketObject, function(err) {
+        if (err) {
+          return err.toString();
+        } else {
+            return "Removed the object";
+        }
+    });
+}
 
 
-// minioClient.listBuckets(function(err, buckets) {
-// //     if (err) return console.log(err)
-// //     console.log('buckets :', buckets)
-// // });
-//
-//
-//
-// // minioClient.removeBucket('mybucket', function(err) {
-// //     if (err) return console.log(err)
-// //     console.log('Bucket removed successfully.')
-// // })
-//   
-//
-//   // var data = []
-//   // var stream = minioClient.listObjects('mybucket','', true)
-//   // stream.on('data', function(obj) { data.push(obj) } )
-//   // stream.on("end", function (obj) { console.log(data) })
-//   // stream.on('error', function(err) { console.log(err) } )
-//
-//
-//   // minioClient.removeObject('mybucket', 'Screenshot 2022-03-12 at 11.49.17 PM.png', function(err) {
-//   //     if (err) {
-//   //       return console.log('Unable to remove object', err);
-//   //     }
-//   //     console.log('Removed the object');
-//   // });
-//
-//   // console.log(minioClient);
+exports.retrieveBuckets = async(minioClient) => {
+    minioClient.listBuckets(function(err, buckets) {
+        if (err) {
+            return err.toString();
+        } else {
+            return buckets;
+        }
+    });
+}
+
+
+exports.retrieveBucketObjects = async(minioClient, bucketName) => {
+    var data = []
+    var stream = minioClient.listObjects('mybucket','', true)
+    
+    stream.on('data', function(obj) { 
+        data.push(obj) 
+    });
+    
+    stream.on("end", function (obj) { 
+        return data; 
+    });
+
+    stream.on('error', function(err) { 
+        return err.toString();
+    });
+}
